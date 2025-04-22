@@ -72,6 +72,10 @@ class Player {
     this.#tickets[ticket]--;
   }
 
+  addTicket(ticket) {
+    this.#tickets[ticket]++;
+  }
+  
   isTicketAvailable(rawTicket) {
     const ticket = ticketNameMapper(rawTicket);
     return this.#tickets[ticket] > 0;
