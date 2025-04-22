@@ -149,11 +149,35 @@ class Game {
     }
   }
 
+  getMrXPlayer() {
+    return this.#players.find(player => player.isMrX());
+  }
+ 
+  transferTicketToMrX(ticket) {
+    // Only transfer tickets when a detective makes a move
+    // Don't transfer when Mr. X moves
+    // Don't transfer when using 2x card
+    if (ticket === 'twoX') {
+      return;
+    }
+    
+    // Skip if current player is Mr. X
+    const currentPlayer = this.#players[this.#currentPlayerIndex];
+    if (currentPlayer.isMrX()) {
+      return;
+    }
+ 
+    // Transfer the ticket to Mr. X
+    const mrX = this.getMrXPlayer();
+    mrX.addTicket(ticket);
+  }
+  
   playMove(destination, ticket) {
     const currentPlayer = this.#players[this.#currentPlayerIndex];
     currentPlayer.updatePosition(destination);
     currentPlayer.updateLog(ticket);
     currentPlayer.reduceTicket(ticket);
+    this.transferTicketToMrX(ticket);
 
     this.#updateRound();
 
