@@ -1,20 +1,14 @@
 const redis = require('redis');
 
 const createRedisClient = () => {
-  if (process.env.NODE_ENV === 'production') {
-    const {
-      REDIS_HOST: host,
-      REDIS_PASSWORD: password,
-      REDIS_USERNAME: username,
-      REDIS_PORT: port
-    } = process.env;
-
-    const url = `rediss://${username}:${password}@${host}:${port}`;
-
-    return redis.createClient({ url });
-  }
-
-  return redis.createClient();
+  return redis.createClient({
+    url: process.env.REDIS_URL || 'redis://localhost:6379',
+    socket: {
+      reconnectStrategy: retries => Math.min(retries * 100, 3000),
+      connectTimeout: 10000,
+      keepAlive: 5000
+    }
+  });
 };
 
 module.exports = { createRedisClient };
