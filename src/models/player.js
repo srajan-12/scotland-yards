@@ -17,7 +17,7 @@ const getDetectiveTickets = () => {
 };
 
 const getMrXTickets = () => {
-  return { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 };
+  return { taxi: 4, bus: 3, subway: 3, black: 5, twoX: 2 };
 };
 
 class Player {
