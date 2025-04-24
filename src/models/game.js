@@ -187,7 +187,7 @@ class Game {
   }
 
   assignRoles(roles, shuffler = (x) => x) {
-    this.#players = shuffler(this.#players);
+    // this.#players = shuffler(this.#players);
 
     this.#players.forEach((player, index) => {
       player.assignRole(roles[index]);
